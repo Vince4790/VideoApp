@@ -10,6 +10,8 @@ var ModalForm = React.createClass({
     $('#input-name').next('.error-message').remove();
     $('#number-form-group').removeClass('has-error has-feedback');
     $('#input-number').next('.error-message').remove();
+    $('video')[0].pause();
+    $('video')[0].currentTime = 0;
   },
   showErrorNameInput: function(){
     $('#name-form-group').addClass('has-error has-feedback');
@@ -58,67 +60,27 @@ var ModalForm = React.createClass({
     var {modalForm, dispatch} = this.props;
     var name,number;
     return (
-      <div id="contact-modal" className="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-<div className="modal-dialog">
 
-<div className="modal-content">
-<div className="modal-header">
-<button type="button" className="close" data-dismiss="modal" onClick={this.cleanUpErrorMessage}>&times;</button>
-<h4 className="modal-title">{modalForm.title}</h4>
-</div>
-<div className="modal-body">
-  <form id="modal-form" className="form-horizontal" role="form">
-                    <div id="name-form-group" className="form-group">
-                      <label htmlFor="inputName" className="col-sm-2 control-label">Name</label>
-                              <div className="col-sm-10">
-                          <input id="input-name" type="text" data-minlength="2" className="form-control input-name" ref="name"
-                          placeholder="Enter name" value={modalForm.name}
-                          onBlur={() => {
-                            if (!validator.validateString(this.refs.name.value)){
-                              this.showErrorNameInput();
-                            } else {
-                              $('#name-form-group').removeClass('has-error has-feedback');
-                              $('#input-name').next('.error-message').remove();
-                            }
-                          }}
-                          onChange={()=>{
-                            dispatch(actions.openModalForm({
-                              ...modalForm,
-                              name: this.refs.name.value
-                            }));
-                          }} required/>
-                      </div>
+    <div className="modal fade" id="contact-modal" tabIndex="-1" role="dialog" aria-labelledby="modal-video-label">
+    <div className="modal-dialog" role="document">
+        <div className="modal-content">
+            <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={this.cleanUpErrorMessage}>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div className="modal-body">
+                <div className="modal-video">
+                    <div>
+                        <video controls>
+                            <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+                            Your browser does not support HTML5 video.
+                        </video>
                     </div>
-                    <div id="number-form-group" className="form-group">
-                      <label className="col-sm-2 control-label">Number</label>
-                          <div className="col-sm-10">
-                          <input id="input-number" type="text" className="form-control" ref="number"
-                            placeholder="Enter number" value={modalForm.number}
-                            onBlur={() => {
-                              if (!validator.validateNumber(this.refs.number.value)){
-                                this.showErrorNumberInput();
-                              } else {
-                                $('#number-form-group').removeClass('has-error has-feedback');
-                                $('#input-number').next('.error-message').remove();
-                              }
-                            }}
-                            onChange={()=>{
-                              dispatch(actions.openModalForm({
-                                ...modalForm,
-                                number: this.refs.number.value
-                              }));
-                            }}/>
-                      </div>
-                    </div>
-    </form>
-</div>
-<div className="modal-footer">
-<button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.cleanUpErrorMessage}>Close</button>
-<button id="submit-button" type="submit" className="btn btn-primary" onClick={this.handleSubmitModal}>Save</button>
-</div>
-</div>
-
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
     );
   }

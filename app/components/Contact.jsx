@@ -31,7 +31,7 @@ var Contact = React.createClass({
     var {dispatch, id, name, number, videoRow} = this.props;
     dispatch(actions.openModalForm({
       actionType: 'UPDATE_CONTACT',
-      title: 'Edit video',
+      title: 'Now Playing',
       id: id,
       name: name,
       number: number
@@ -43,21 +43,19 @@ var Contact = React.createClass({
     dispatch(actions.toggleCheck(id));
   },
   render: function(){
-    var {name, number, checked} = this.props;
+    var {name, number, checked,id} = this.props;
     return (    
-        <tr className="video-row-data" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-          <td>
-            <input type="checkbox" checked={checked} onClick={this.toggleCheck}/>
-          </td>
-          <td><a href="#" onClick={this.handleEdit}><span>{name}</span></a></td>
-          <td>{number}</td>
-          <td>
-            <div hidden={!this.state.mouseEntered}>
-              <button onClick={this.handleEdit}><span className="glyphicon glyphicon-pencil"></span></button>
-              <button onClick={this.handleDelete}><span className="glyphicon glyphicon-remove"></span></button>
-            </div>
-          </td>
-        </tr>
+        <li>
+          <input type="checkbox" checked={checked} onClick={this.toggleCheck}/>
+          <div className="overlay" onClick={this.handleEdit}>
+            <a href="#"><img className="thumbnail" src="https://homepages.cae.wisc.edu/~ece533/images/monarch.png" width="192" height="109" alt="" /></a>
+            <span className="time">3:28</span>
+            <a href="#" className="playWrapper">
+              <span className="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="" /></span>
+            </a>
+          </div>
+         <div className="thumbCaption"><a href="#">This is the description of video</a></div>
+       </li>
     )
   }
 });

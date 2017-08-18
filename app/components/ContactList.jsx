@@ -61,35 +61,16 @@ var ContactList = React.createClass({
   } else {
   return (
     <div>
-          <div style={{marginLeft:'40px'}}>
-            <p>You have uploaded {filtered.length} video(s).  
+          <div style={{marginLeft:'40px',fontSize:'24px', fontFamily:'Arial, "Helvetica Neue", Helvetica, sans-serif', width:'80%'}}>
+            <p>
+              You have uploaded {filtered.length} video(s).  
             <span><a href="#" hidden={filtered.length > 0} onClick={this.handleAddNew}>Start uploading</a></span></p>
+            <hr hidden={filtered.length === 0} style={{color:'black'}}/>
           </div>
-          <hr hidden={filtered.length === 0}/>
-          <table className="table" hidden={filtered.length === 0}>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Number</th>
-                <th>
-                  <div id="button-remove" className="dropdown">
-                    <button className="btn btn-default dropdown-toggle" type="button" id="removeMenu"
-                    data-toggle="dropdown">
-                     <span className="glyphicon glyphicon-trash"></span>
-                    </button>
-                    <ul className="dropdown-menu" aria-labelledby="removeMenu">
-                     <li><a href="#" onClick={this.handleDeleteSelected}>Remove Selected</a></li>
-                     <li><a href="#" onClick={this.handleDeleteAll}>Remove All</a></li>
-                    </ul>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {renderContacts()}
-            </tbody>
-          </table>
+          <ul className="thumb" hidden={filtered.length === 0}>
+            {renderContacts()}
+          </ul>
+
     </div>
   )
   }

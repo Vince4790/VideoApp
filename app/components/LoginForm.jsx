@@ -9,11 +9,11 @@ export var LoginForm = React.createClass({
     return (
       <div className="container login-form">
         <div className="text-center">
-          <h3 style={{color: 'blue', marginBottom: '30px'}}>My VideoApp</h3>
+          <h3 style={{font:'Arial',fontSize:'48px',color: 'deepskyblue', marginBottom: '30px'}}>MyVideo</h3>
         </div>
     	<div className="row">
 			<div className="col-md-6 col-md-offset-3">
-				<div className="panel panel-default panel-login">
+				<div className="panel panel-default panel-login" style={{border:'2px solid lightgray'}}>
 					<div className="panel-heading">
 						<div className="row">
 							<div className="col-xs-6">
@@ -56,8 +56,8 @@ export var LoginForm = React.createClass({
 									</div>
 									<div className="form-group">
 										<div className="row">
-											<div className="col-sm-6 col-sm-offset-5">
-												<input type="submit" id="register-submit" tabIndex="4" className="btn btn-register" value="Register Now" required/>
+											<div className="col-sm-6 col-sm-offset-5" style={{paddingLeft:'0'}}>
+												<input type="submit" id="register-submit" className="btn btn-register" value="Register Now" required/>
 											</div>
 										</div>
 									</div>
