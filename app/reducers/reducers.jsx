@@ -30,6 +30,15 @@ export var modalFormReducer = (state = {}, action) => {
   };
 };
 
+export var uploadFormReducer = (state = {}, action) => {
+  switch (action.type){
+    case 'OPEN_UPLOAD':
+     return action.modalForm;
+    default:
+      return state;
+  };
+};
+
 export var loadVideoNotificationReducer = (state = false, action) => {
   switch (action.type){
     case 'ADD_VIDEOS_DONE':

@@ -35,6 +35,13 @@ export var openModalForm = (modalForm) => {
   }
 }
 
+export var openUploadForm = (modalForm) => {
+  return {
+    type: 'OPEN_UPLOAD',
+    modalForm
+  }
+}
+
 export var startAddContact = (contact) => {
   return (dispatch, getState) => {
     var newContact = {

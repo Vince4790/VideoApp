@@ -18,7 +18,7 @@ export var Nav = React.createClass({
   handleAdd: function(e) {
     e.preventDefault();
     var {dispatch} = this.props;
-    dispatch(actions.openModalForm({
+    dispatch(actions.openUploadForm({
       title: 'Add new video',
       actionType: 'ADD_CONTACT'
     }));
@@ -58,7 +58,7 @@ export var Nav = React.createClass({
       </ul>
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <button type="button" className="btn btn-primary btn-md" data-toggle="modal" data-target="#contact-modal" style={{marginTop: '7px'}} onClick={this.handleAdd}>
+          <button type="button" className="btn btn-primary btn-md" data-toggle="modal" data-target="#video-modal" style={{marginTop: '7px'}} onClick={this.handleAdd}>
             Upload Video
           </button>
         </li>

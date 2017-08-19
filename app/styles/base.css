@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: white;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -44,45 +44,6 @@ article {
 #button-remove {
 
 }
-
-/***** Modal *****/
- 
-.modal-backdrop.in {
-    filter: alpha(opacity=7);
-    opacity: 0.7;
-}
- 
-.modal-content {
-    background: none;
-    border: 0;
-    -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
-    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
-}
- 
-.modal-body {
-    padding: 0 25px 25px 25px;
-}
- 
-.modal-header {
-    padding: 25px 15px 15px 25px;
-    text-align: right;
-}
- 
-.modal-header, .modal-footer {
-    border: 0;
-}
- 
-.modal-header .close {
-    float: none;
-    margin: 0;
-    font-size: 36px;
-    color: #fff;
-    font-weight: 300;
-    text-shadow: none;
-    opacity: 1;
-}
-
-
 #search-input {
   padding-right: 0;
 }
@@ -142,6 +103,7 @@ article {
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
 }
+
 .panel-login input:hover,
 .panel-login input:focus {
 	outline:none;

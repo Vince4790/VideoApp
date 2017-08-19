@@ -68,6 +68,7 @@ var ModalForm = React.createClass({
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={this.cleanUpErrorMessage}>
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h4 className="modal-title" style={{color: 'deepskyblue'}}>{modalForm.title}</h4>
             </div>
             <div className="modal-body">
                 <div className="modal-video">
