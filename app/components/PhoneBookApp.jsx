@@ -1,8 +1,6 @@
 var React = require('react');
 import * as Redux from 'react-redux';
 
-import Contact from 'Contact';
-import ContactSearch from 'ContactSearch';
 import ContactList from 'ContactList';
 import ModalForm from 'ModalForm';
 import VideoUploadForm from 'VideoUploadForm';

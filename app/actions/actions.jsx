@@ -1,4 +1,7 @@
 import firebase, {firebaseRef, provider} from 'app/firebase/';
+var {hashHistory} = require('react-router');
+var AuthenticationAPI = require('AuthenticationAPI');
+var ContactAPI = require('ContactAPI');
 
 export var setSearchText = (searchText) => {
   return {
@@ -61,10 +64,11 @@ export var startAddContact = (contact) => {
   };
 };
 
-export var addContacts = (contacts) => {
+export var addVideos = (videos) => {
+  console.log(videos);
   return {
     type: 'ADD_CONTACTS',
-    contacts
+      videos
   };
 };
 
@@ -76,23 +80,22 @@ export var notifyAddVideosDone = () => {
 
 export var startAddContacts = () => {
   return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var contactsRef = firebaseRef.child(`users/${uid}/contacts`);
+    ContactAPI.getVideosByCurrentUser(dispatch);
 
-    return contactsRef.once('value').then((snapshot) => {
-      var contacts = snapshot.val() || {};
-      var parsedContacts = [];
-
-      Object.keys(contacts).forEach((contactId) => {
-        parsedContacts.push({
-          id: contactId,
-          ...contacts[contactId]
-        });
-      });
-
-      dispatch(addContacts(parsedContacts));
-      dispatch(notifyAddVideosDone());
-    });
+    // return videosRef.once('value').then((snapshot) => {
+    //   var contacts = snapshot.val() || {};
+    //   var parsedContacts = [];
+    //
+    //   Object.keys(contacts).forEach((contactId) => {
+    //     parsedContacts.push({
+    //       id: contactId,
+    //       ...contacts[contactId]
+    //     });
+    //   });
+    //
+    //   dispatch(addContacts(parsedContacts));
+    //   dispatch(notifyAddVideosDone());
+    // });
   };
 };
 
@@ -198,7 +201,7 @@ export var logout = () => {
 
 export var createUserWithEmailPassword = (email, password) => {
   return (dispatch, getState) => {
-    firebase.auth().createUserWithEmailAndPassword(email,password).then((result) => {
+      AuthenticationAPI.createUserWithEmailAndPassword(email,password).then((result) => {
       console.log('Register worked!', result);
     }, (error) => {
       console.log('Unable to register', error.message);
@@ -210,19 +213,14 @@ export var createUserWithEmailPassword = (email, password) => {
 export var loginWithEmailPassword = (email, password) => {
   return (dispatch, getState) => {
     console.log('Log with email');
-    firebase.auth().signInWithEmailAndPassword(email, password).then((result) => {
-      console.log('Auth worked!', result);
-    }, (error) => {
-      console.log('Unable to auth', error);
-      alert(error.message);
-    });
+    AuthenticationAPI.loginWithEmailAndPassword(email, password, dispatch);
   };
 };
 
 export var startLogout = () => {
-  return (dispatch, getState) => {
-    return firebase.auth().signOut().then(() => {
-      console.log('Logged out!');
-    });
-  };
+    return (dispatch, getState) => {
+        localStorage.clear();
+        dispatch(logout());
+        hashHistory.push('/');
+    };
 };

@@ -28,7 +28,7 @@ var Contact = React.createClass({
       this.setState({checkAll: this.state.checkAll});
   },
   handleEdit: function(){
-    var {dispatch, id, name, number, videoRow} = this.props;
+    var {dispatch, id, name, number} = this.props;
     dispatch(actions.openModalForm({
       actionType: 'UPDATE_CONTACT',
       title: 'Now Playing',
@@ -54,7 +54,7 @@ var Contact = React.createClass({
               <span className="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="" /></span>
             </a>
           </div>
-         <div className="thumbCaption"><a href="#">This is the description of video</a></div>
+         <div className="thumbCaption"><a href="#">Description of {name}</a></div>
        </li>
     )
   }

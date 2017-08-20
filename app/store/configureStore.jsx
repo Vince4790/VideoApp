@@ -5,7 +5,7 @@ var {searchTextReducer, contactsReducer, modalFormReducer, authReducer, sortRedu
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
     searchText: searchTextReducer,
-    contacts: contactsReducer,
+    videos: contactsReducer,
     modalForm: modalFormReducer,
     auth: authReducer,
     sort: sortReducer,

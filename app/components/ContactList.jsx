@@ -16,6 +16,10 @@ var ContactList = React.createClass({
       }
       $('#sort-span').toggleClass('glyphicon-triangle-top glyphicon-triangle-bottom');
     },
+    componentWillMount: function(){
+        var {dispatch} = this.props;
+        dispatch(actions.startAddContacts(dispatch));
+    },
     handleAddNew: function(e) {
       e.preventDefault();
       var {dispatch} = this.props;
@@ -43,13 +47,13 @@ var ContactList = React.createClass({
       $('#confirm-modal').modal('show');
     },
   render: function(){
-    var {contacts, searchText, dispatch, sort, showAllVideoRowCheckBox, videosLoaded} = this.props;
-    var filtered = ContactAPI.filterContacts(contacts, searchText, sort);
-    var renderContacts = () => {
-      if (contacts.length > 0){
-        return filtered.map((contact) => {
+    var {videos, searchText, sort, videosLoaded, auth} = this.props;
+    var filtered = ContactAPI.filterVideos(videos, searchText, sort);
+    var renderVideos = () => {
+      if (videos.length > 0){
+        return filtered.map((video) => {
           return (
-             <Contact key={contact.id} {...contact}/>
+             <Contact key={video.id} {...video}/>
           )
         });
       }
@@ -68,7 +72,7 @@ var ContactList = React.createClass({
             <hr hidden={filtered.length === 0} style={{color:'black'}}/>
           </div>
           <ul className="thumb" hidden={filtered.length === 0}>
-            {renderContacts()}
+            {renderVideos()}
           </ul>
 
     </div>

@@ -42,6 +42,7 @@ export var uploadFormReducer = (state = {}, action) => {
 export var loadVideoNotificationReducer = (state = false, action) => {
   switch (action.type){
     case 'ADD_VIDEOS_DONE':
+      console.log(action);
      return true;
     default:
       return state;
@@ -64,9 +65,10 @@ export var authReducer = (state = {}, action) => {
 export var contactsReducer = (state = [], action) => {
   switch (action.type){
     case 'ADD_CONTACTS':
+      console.log(action);
       return [
         ...state,
-        ...action.contacts
+        ...action.videos
       ];
     case 'REMOVE_CONTACT':
       return state.filter((contact) => {
