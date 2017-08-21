@@ -1,7 +1,6 @@
 var React = require('react');
 var {connect} = require('react-redux');
-var actions = require('actions');
-var validator = require('validator');
+var VideoFileAPI = require('VideoFileAPI');
 var $ = require('jquery');
 
 var VideoUploadForm = React.createClass({
@@ -25,38 +24,13 @@ var VideoUploadForm = React.createClass({
   },
   handleSubmitModal: function(e){
     e.preventDefault();
-    var {actionType, id} = this.props.modalForm;
-    var name = this.refs.name.value;
-    var number = this.refs.number.value;
-    var passedValidateName = validator.validateString(name);
-    var passedValidateNumber = validator.validateNumber(number);
-    if (!passedValidateName){
-      this.showErrorNameInput();
-    }
-    if (!passedValidateNumber){
-      this.showErrorNumberInput();
-    }
-    if (passedValidateNumber && passedValidateName){
-      var {dispatch} = this.props;
-      if (actionType === 'ADD_CONTACT'){
-        dispatch(actions.startAddContact({
-          name: name,
-          number: number,
-          checked: false
-        }));
-      } else if (actionType === 'UPDATE_CONTACT'){
-        dispatch(actions.startUpdateContact({
-          id, id,
-          name: name,
-          number: number
-        }));
-      }
-      $('#contact-modal').modal('hide');
-    }
+    var file = document.getElementById('file-input').files[0];
+    var fileName = document.getElementById('file-input').value;
+    var extension = fileName.substr( (fileName.lastIndexOf('.') +1) );
+    var videoName = $("#upload-form-video-name").val();
+    VideoFileAPI.splitAndEncryptFile(file,videoName, extension);
   },
   render: function(){
-    var {modalForm, dispatch} = this.props;
-    var name,number;
     return (
       <div id="video-modal" className="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
 <div className="modal-dialog">
@@ -72,12 +46,12 @@ var VideoUploadForm = React.createClass({
                     <input type="text" id="upload-form-video-name" style={{marginLeft:'15px',width:'80%'}} tabIndex="1" className="form-control" placeholder="Enter video name" required/>
                   </div>
                   <div className="form-group">
-                      <input type="file" name="video"  style={{marginLeft:'15px'}} accept="video/*" />
+                      <input type="file" name="video" id="file-input"  style={{marginLeft:'15px'}} accept="image/*" />
                   </div>
                   <div className="form-group">
                     <div className="row">
                       <div className="col-sm-6 col-sm-offset-5" style={{paddingLeft:'0'}}>
-                        <input type="submit" id="upload-submit" className="btn btn-register" value="Upload Video" required/>
+                        <input type="submit" id="upload-submit" className="btn btn-register" value="Upload Video" onClick={this.handleSubmitModal} required/>
                       </div>
                     </div>
                   </div>

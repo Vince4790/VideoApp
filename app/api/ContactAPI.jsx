@@ -33,7 +33,6 @@ module.exports = {
 
       var nameLowerCase = video.name.toLowerCase();
 
-        console.log('filetered',nameLowerCase);
       return searchText.length === 0 || nameLowerCase.indexOf(searchText) > -1
               || video.name.indexOf(searchText) > -1;
     });

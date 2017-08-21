@@ -25,37 +25,6 @@ var ModalForm = React.createClass({
       $('#input-number').after("<div class='error-message' style='color:red'>Please enter only digits</div>");
     }
   },
-  handleSubmitModal: function(e){
-    e.preventDefault();
-    var {actionType, id} = this.props.modalForm;
-    var name = this.refs.name.value;
-    var number = this.refs.number.value;
-    var passedValidateName = validator.validateString(name);
-    var passedValidateNumber = validator.validateNumber(number);
-    if (!passedValidateName){
-      this.showErrorNameInput();
-    }
-    if (!passedValidateNumber){
-      this.showErrorNumberInput();
-    }
-    if (passedValidateNumber && passedValidateName){
-      var {dispatch} = this.props;
-      if (actionType === 'ADD_CONTACT'){
-        dispatch(actions.startAddContact({
-          name: name,
-          number: number,
-          checked: false
-        }));
-      } else if (actionType === 'UPDATE_CONTACT'){
-        dispatch(actions.startUpdateContact({
-          id, id,
-          name: name,
-          number: number
-        }));
-      }
-      $('#contact-modal').modal('hide');
-    }
-  },
   render: function(){
     var {modalForm, dispatch} = this.props;
     var name,number;
