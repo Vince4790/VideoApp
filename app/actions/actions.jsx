@@ -1,7 +1,8 @@
-import firebase, {firebaseRef, provider} from 'app/firebase/';
+import {firebaseRef} from 'app/firebase/';
 var {hashHistory} = require('react-router');
 var AuthenticationAPI = require('AuthenticationAPI');
 var ContactAPI = require('ContactAPI');
+var VideoFileAPI = require('VideoFileAPI');
 
 export var setSearchText = (searchText) => {
   return {
@@ -81,21 +82,6 @@ export var notifyAddVideosDone = () => {
 export var startAddContacts = () => {
   return (dispatch, getState) => {
     ContactAPI.getVideosByCurrentUser(dispatch);
-
-    // return videosRef.once('value').then((snapshot) => {
-    //   var contacts = snapshot.val() || {};
-    //   var parsedContacts = [];
-    //
-    //   Object.keys(contacts).forEach((contactId) => {
-    //     parsedContacts.push({
-    //       id: contactId,
-    //       ...contacts[contactId]
-    //     });
-    //   });
-    //
-    //   dispatch(addContacts(parsedContacts));
-    //   dispatch(notifyAddVideosDone());
-    // });
   };
 };
 
@@ -132,57 +118,27 @@ export var sortByNameDesc = () => {
 
 export var startRemoveAll = () => {
   return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var contactRef = firebaseRef.child(`users/${uid}/contacts`).remove();
-
-    return contactRef.then(() => {
-      dispatch(removeAll());
-    });
+    VideoFileAPI.removeAllVideos();
+    dispatch(removeAll());
   };
 };
 
-export var startRemoveSelected = () => {
+export var startRemoveSelected = (videos) => {
   return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var contacts = getState().contacts;
-    var filteredContacts = contacts.filter((contact) => {
-      return contact.checked;
+    var selected = videos.filter((video)=>{
+      return video.checked;
+    }).map((video)=>{
+      return video.id;
     });
-    var removedContacts = {};
-    for (var i in filteredContacts){
-      var key = filteredContacts[i].id;
-      removedContacts[key] = null;
-    }
-    var contactRef = firebaseRef.child(`users/${uid}/contacts`).update(removedContacts);
-
-    return contactRef.then(() => {
-      dispatch(removeSelected());
-    });
-  };
-};
-
-export var startUpdateContact = (contact) => {
-  return (dispatch, getState) => {
-      var uid = getState().auth.uid;
-      var contactRef = firebaseRef.child(`users/${uid}/contacts/${contact.id}`).update({
-        name: contact.name,
-        number: contact.number
-      });
-
-      return contactRef.then(() => {
-        dispatch(updateContact(contact));
-      });
-  };
-};
-
-export var startRemoveContact = (id) => {
-  return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var contactRef = firebaseRef.child(`users/${uid}/contacts/${id}`).remove();
-
-    return contactRef.then(() => {
-      dispatch(removeContact(id));
-    });
+    // for (var video in videos){
+    //   console.log(video.checked);
+    //   if (video.checked){
+    //     selected.push(video.id);
+    //   }
+    // }
+    console.log(selected);
+    VideoFileAPI.removeSelectedVideos(selected);
+    dispatch(removeSelected());
   };
 };
 
@@ -201,12 +157,7 @@ export var logout = () => {
 
 export var createUserWithEmailPassword = (email, password) => {
   return (dispatch, getState) => {
-      AuthenticationAPI.createUserWithEmailAndPassword(email,password).then((result) => {
-      console.log('Register worked!', result);
-    }, (error) => {
-      console.log('Unable to register', error.message);
-      alert(error.message);
-    });
+      AuthenticationAPI.createNewUserWithEmailAndPassword(email,password);
   }
 }
 

@@ -1,7 +1,6 @@
 var React = require('react');
 import * as Redux from 'react-redux';
-import * as actions from 'actions';
-import firebase from 'app/firebase/';
+
 
 
 export var LoginForm = React.createClass({

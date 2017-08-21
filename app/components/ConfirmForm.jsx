@@ -6,14 +6,12 @@ var $ = require('jquery');
 var ConfirmForm = React.createClass({
   handeSubmitModal: function(e){
     e.preventDefault();
-    var {actionType, id} = this.props.modalForm;
+    var {actionType, videos} = this.props.modalForm;
     var {dispatch} = this.props;
-    if (actionType === 'REMOVE_CONTACT'){
-      dispatch(actions.startRemoveContact(id));
-    } else if (actionType === 'REMOVE_SELECTED'){
-      dispatch(actions.startRemoveSelected());
+    if (actionType === 'REMOVE_SELECTED'){
+      dispatch(actions.startRemoveSelected(videos));
     } else if (actionType === 'REMOVE_ALL'){
-      dispatch(actions.startRemoveAll());
+      dispatch(actions.startRemoveAll(videos));
     }
   },
   render: function(){

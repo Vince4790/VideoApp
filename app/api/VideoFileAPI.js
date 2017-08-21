@@ -2,7 +2,9 @@ var $ = require('jquery');
 const CryptoJS = require('crypto-js');
 
 const VIDEO_UPLOAD_API_URL = 'http://localhost:8080/api/video';
-const VIDEO_MERGE_API_URL = 'http://localhost:8080/api/videos/merge';
+const VIDEOS_API_REMOVE_URL = 'http://localhost:8080/api/videos/remove';
+const VIDEOS_API_REMOVE_ALL_URL = 'http://localhost:8080/api/videos/remove/all';
+const VIDEO_MERGE_AND_UPLOAD_API_URL = 'http://localhost:8080/api/video/upload';
 
 module.exports = {
     splitAndEncryptFile: function(file, videoName, ext){
@@ -43,10 +45,51 @@ module.exports = {
         }
     },
 
+    removeSelectedVideos: function(ids){
+        let formData = new FormData();
+        formData.append('ids', JSON.stringify(ids));
+        $.ajax({
+            url: VIDEOS_API_REMOVE_URL,
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            headers: {
+                "Authorization": "Basic " + localStorage.getItem("authorization"),
+            },
+            success: function(){
+                alert('Videos successfully removed');
+            },
+            error: function(){
+                alert('Failed to remove videos');
+            }
+        });
+    },
+
+    removeAllVideos: function(){
+        let formData = new FormData();
+        $.ajax({
+            url: VIDEOS_API_REMOVE_ALL_URL,
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            headers: {
+                "Authorization": "Basic " + localStorage.getItem("authorization"),
+            },
+            success: function(){
+                alert('All videos successfully removed');
+            },
+            error: function(){
+                alert('Failed to remove videos');
+            }
+        });
+    },
+
     uploadFile: function(formData){
-        const mergeFile = function(formData){
+        const mergeAndUploadFile = function(formData){
             $.ajax({
-                url: VIDEO_MERGE_API_URL,
+                url: VIDEO_MERGE_AND_UPLOAD_API_URL,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -54,8 +97,8 @@ module.exports = {
                 headers: {
                     "Authorization": "Basic " + localStorage.getItem("authorization"),
                 },
-                success: function(){
-                    console.log('Merge success');
+                success: function(data){
+                    console.log(data);
                 },
                 error: function(){
                     console.log('Upload failed!');
@@ -74,12 +117,12 @@ module.exports = {
             },
             success: function(status){
                 if (status === 'Completed'){
-                    var mergeRequest = new FormData();
-                    mergeRequest.append('videoName',formData.get('name'));
-                    mergeRequest.append('chunks', formData.get('total'));
-                    mergeRequest.append('ext', formData.get('ext'));
+                    var request = new FormData();
+                    request.append('videoName',formData.get('name'));
+                    request.append('chunks', formData.get('total'));
+                    request.append('ext', formData.get('ext'));
 
-                    mergeFile(mergeRequest);
+                    mergeAndUploadFile(request);
                 }
             },
             error: function(){

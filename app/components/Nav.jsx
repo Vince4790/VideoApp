@@ -4,7 +4,7 @@ import * as actions from 'actions';
 require('bootstrap-validator');
 
 export var Nav = React.createClass({
-  handleKeyPress: function(e){
+  handleSearchKeyPress: function(e){
     e.preventDefault();
     var {dispatch} = this.props;
     if (e.key === 'Enter'){
@@ -44,7 +44,7 @@ export var Nav = React.createClass({
           <form className="navbar-form navbar-left">
             <div className="form-group">
               <input id="nav-bar-search" type="text" ref="searchText" className="form-control" placeholder="Search"
-                onKeyPress={this.handleKeyPress}/>
+                onKeyPress={this.handleSearchKeyPress}/>
             </div>
             <button type="button" className="btn btn-default glyphicon glyphicon-search"
               onClick={() => {

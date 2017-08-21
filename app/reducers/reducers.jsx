@@ -102,16 +102,16 @@ export var contactsReducer = (state = [], action) => {
         return !contact.checked;
       });
     case 'TOGGLE_CHECK':
-      return state.map((contact) => {
-        if (contact.id === action.id){
-          var toggleChecked = !contact.checked;
+      return state.map((video) => {
+        if (video.id === action.id){
+          var toggleChecked = !video.checked;
 
           return {
-            ...contact,
+            ...video,
             checked: toggleChecked
           }
         } else {
-          return contact;
+          return video;
         }
       });
     case 'LOGOUT':

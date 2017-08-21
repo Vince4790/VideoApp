@@ -60,10 +60,6 @@ module.exports = {
             },
             success: function(videos){
                 console.log(videos);
-                // var parsed = [];
-                // videos.forEach((video)=>{
-                //   parsed.push(JSON.parse(video));
-                // });
                 dispatch(actions.addVideos(videos));
                 dispatch(actions.notifyAddVideosDone());
             },
