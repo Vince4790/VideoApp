@@ -1,4 +1,3 @@
-import {firebaseRef} from 'app/firebase/';
 var {hashHistory} = require('react-router');
 var AuthenticationAPI = require('AuthenticationAPI');
 var ContactAPI = require('ContactAPI');
@@ -11,19 +10,12 @@ export var setSearchText = (searchText) => {
   };
 }
 
-export var addContact = (contact) => {
+export var addVideo = (video) => {
   return {
-    type: 'ADD_CONTACT',
-    contact
+    type: 'ADD_VIDEO',
+    video: video
   };
 };
-
-export var updateContact = (contact) => {
-  return {
-    type: 'UPDATE_CONTACT',
-    contact
-  }
-}
 
 export var toggleCheck = (id) => {
   return {
@@ -45,25 +37,6 @@ export var openUploadForm = (modalForm) => {
     modalForm
   }
 }
-
-export var startAddContact = (contact) => {
-  return (dispatch, getState) => {
-    var newContact = {
-      name: contact.name,
-      number: contact.number
-    };
-    var uid = getState().auth.uid;
-    var contactRef = firebaseRef.child(`users/${uid}/contacts`).push(newContact);
-
-    return contactRef.then(() => {
-      dispatch(addContact({
-        ...newContact,
-        checked: false,
-        id: contactRef.key
-      }));
-    });
-  };
-};
 
 export var addVideos = (videos) => {
   console.log(videos);
@@ -147,6 +120,20 @@ export var login = (uid) => {
     type: 'LOGIN',
     uid
   };
+};
+
+export var onUpload = () => {
+    $("#upload-form-video-name").prop('disabled', true);
+    $("#file-input").prop('disabled', true);
+    $("#upload-submit").hide();
+    $("#spinner").show();
+};
+
+export var doneUpload = () => {
+    $("#upload-form-video-name").prop('disabled', false);
+    $("#file-input").prop('disabled', false);
+    $("#upload-submit").show();
+    $("#spinner").hide();
 };
 
 export var logout = () => {

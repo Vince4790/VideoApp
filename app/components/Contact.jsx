@@ -28,33 +28,40 @@ var Contact = React.createClass({
       this.setState({checkAll: this.state.checkAll});
   },
   handleEdit: function(){
-    var {dispatch, id, name, number} = this.props;
+    var {dispatch, id, name, url} = this.props;
     dispatch(actions.openModalForm({
       actionType: 'UPDATE_CONTACT',
       title: 'Now Playing',
       id: id,
       name: name,
-      number: number
+      url: url
     }));
-    $('#contact-modal').modal('show');
+    $('#player-modal').modal('show');
   },
   toggleCheck: function(){
     var {id, dispatch} = this.props;
     dispatch(actions.toggleCheck(id));
   },
   render: function(){
-    var {name, number, checked,id} = this.props;
+    var {name, url, checked} = this.props;
     return (    
         <li>
           <input type="checkbox" checked={checked} onClick={this.toggleCheck}/>
           <div className="overlay" onClick={this.handleEdit}>
-            <a href="#"><img className="thumbnail" src="https://homepages.cae.wisc.edu/~ece533/images/monarch.png" width="192" height="109" alt="" /></a>
-            <span className="time">3:28</span>
+            <a href="#">
+              <video className="video-js vjs-default-skin" style={{width:'192',height:'109',margin:'auto'}}>
+                <source src={url}
+                        type="video/mp4"/>
+                Your browser does not support HTML5 video.
+              </video>
+            </a>
             <a href="#" className="playWrapper">
-              <span className="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="" /></span>
+              <span className="playBtn">
+                <img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="" />
+              </span>
             </a>
           </div>
-         <div className="thumbCaption"><a href="#">Description of {name}</a></div>
+         <div className="thumbCaption"><a href="#">{name}</a></div>
        </li>
     )
   }

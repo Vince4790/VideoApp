@@ -1,11 +1,11 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
-var {searchTextReducer, contactsReducer, modalFormReducer, authReducer, sortReducer, loadVideoNotificationReducer,uploadFormReducer} = require('reducers');
+var {searchTextReducer, videosReducer, modalFormReducer, authReducer, sortReducer, loadVideoNotificationReducer,uploadFormReducer} = require('reducers');
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
     searchText: searchTextReducer,
-    videos: contactsReducer,
+    videos: videosReducer,
     modalForm: modalFormReducer,
     auth: authReducer,
     sort: sortReducer,

@@ -62,7 +62,7 @@ export var authReducer = (state = {}, action) => {
   }
 };
 
-export var contactsReducer = (state = [], action) => {
+export var videosReducer = (state = [], action) => {
   switch (action.type){
     case 'ADD_CONTACTS':
       console.log(action);
@@ -74,13 +74,13 @@ export var contactsReducer = (state = [], action) => {
       return state.filter((contact) => {
         return contact.id !== action.id;
       });
-    case 'ADD_CONTACT':
+    case 'ADD_VIDEO':
       return [
         ...state,
         {
-          id: uuid(),
-          name: action.contact.name,
-          number: action.contact.number,
+          id: action.video.id,
+          name: action.video.name,
+          url: action.video.url,
           checked: false
         }
       ];

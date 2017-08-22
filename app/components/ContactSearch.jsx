@@ -11,7 +11,7 @@ var ContactSearch = React.createClass({
       title: 'Add contact',
       actionType: 'ADD_CONTACT'
     }));
-    $('#contact-modal').modal('show');
+    $('#player-modal').modal('show');
   },
 
   handleDeleteAll: function(){

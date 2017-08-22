@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var actions = require('actions');
 const CryptoJS = require('crypto-js');
 
 const VIDEO_UPLOAD_API_URL = 'http://localhost:8080/api/video';
@@ -7,12 +8,12 @@ const VIDEOS_API_REMOVE_ALL_URL = 'http://localhost:8080/api/videos/remove/all';
 const VIDEO_MERGE_AND_UPLOAD_API_URL = 'http://localhost:8080/api/video/upload';
 
 module.exports = {
-    splitAndEncryptFile: function(file, videoName, ext){
+    splitAndEncryptFile: function(file, videoName, ext, dispatch){
         var chunkSize = 5* 1024 * 1024; // 5 MB
         var fileSize = file.size;
         const chunks = Math.ceil(file.size/chunkSize,chunkSize);
         var chunk = 0;
-        var uploadFile = this.uploadFile;
+        var uploadFileChunk = this.uploadFileChunk;
         var map = new Map();
 
         console.log('file size..',fileSize);
@@ -38,7 +39,7 @@ module.exports = {
                 console.log("MD5 Checksum", hash, current);
                 var currentData = map.get(current);
                 currentData.append('checksum', hash);
-                uploadFile(currentData);
+                uploadFileChunk(currentData, dispatch);
             };
             reader.readAsArrayBuffer(blob);
             chunk++;
@@ -86,8 +87,8 @@ module.exports = {
         });
     },
 
-    uploadFile: function(formData){
-        const mergeAndUploadFile = function(formData){
+    uploadFileChunk: function(formData, dispatch){
+        const mergeAndUploadFile = function(formData, dispatch){
             $.ajax({
                 url: VIDEO_MERGE_AND_UPLOAD_API_URL,
                 data: formData,
@@ -98,10 +99,13 @@ module.exports = {
                     "Authorization": "Basic " + localStorage.getItem("authorization"),
                 },
                 success: function(data){
-                    console.log(data);
+                    alert('Upload successfully');
+                    dispatch(actions.addVideo(data));
+                    actions.doneUpload();
                 },
                 error: function(){
-                    console.log('Upload failed!');
+                    actions.doneUpload();
+                    alert('Upload failed!');
                 }
             });
         };
@@ -122,11 +126,12 @@ module.exports = {
                     request.append('chunks', formData.get('total'));
                     request.append('ext', formData.get('ext'));
 
-                    mergeAndUploadFile(request);
+                    mergeAndUploadFile(request, dispatch);
                 }
             },
             error: function(){
-                console.log('Upload failed!');
+                actions.doneUpload();
+                alert('Upload failed!');
             }
         });
     },
