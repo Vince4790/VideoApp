@@ -60,7 +60,7 @@ var ContactList = React.createClass({
               marginLeft: '5px',
               fontSize: '24px',
               fontFamily: 'Arial, "Helvetica Neue", Helvetica, sans-serif',
-              width: '70%'
+              width: '90%'
           }}>
               <p>
                   You have uploaded {filtered.length} video(s).

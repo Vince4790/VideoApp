@@ -4,30 +4,15 @@ var actions = require('actions');
 var $ = require('jquery');
 
 var Contact = React.createClass({
-  getInitialState: function(e){
-    return {mouseEntered: false};
-  },
-  handleMouseEnter: function(e){
-    this.setState({mouseEntered: true});
-  },
-  handleMouseLeave: function(e){
-    this.setState({mouseEntered: false});
-  },
-  handleDelete: function(){
-    var {id, name, number, dispatch} = this.props;
-    dispatch(actions.openModalForm({
-      actionType: 'REMOVE_CONTACT',
-      title: 'Are you sure you want to delete ?',
-      id: id,
-      name: name,
-      number: number
-    }));
-    $('#confirm-modal').modal('show');
-  },
-  handleClick: function(e){
-      this.setState({checkAll: this.state.checkAll});
-  },
-  handleEdit: function(){
+    addSourceToVideo: function(url){
+        var video = document.getElementById('video-modal-player');
+        var source = document.getElementById('video-modal-source');
+        source.src = url;
+
+        //load the video source again
+        video.load();
+    },
+  handleOpenVideoModal: function(){
     var {dispatch, id, name, url} = this.props;
     dispatch(actions.openModalForm({
       actionType: 'UPDATE_CONTACT',
@@ -36,6 +21,9 @@ var Contact = React.createClass({
       name: name,
       url: url
     }));
+
+
+    this.addSourceToVideo(url);
     $('#player-modal').modal('show');
   },
   toggleCheck: function(){
@@ -47,11 +35,10 @@ var Contact = React.createClass({
     return (    
         <li>
           <input type="checkbox" checked={checked} onClick={this.toggleCheck}/>
-          <div className="overlay" onClick={this.handleEdit}>
+          <div className="overlay" onClick={this.handleOpenVideoModal}>
             <a href="#">
               <video className="video-js vjs-default-skin" style={{width:'192',height:'109',margin:'auto'}}>
-                <source src={url}
-                        type="video/mp4"/>
+                <source src={url} type="video/mp4"/>
                 Your browser does not support HTML5 video.
               </video>
             </a>
