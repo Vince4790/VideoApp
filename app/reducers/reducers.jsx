@@ -1,5 +1,4 @@
-var uuid = require('node-uuid');
-var ContactAPI = require('ContactAPI');
+var VideoAPI = require('VideoAPI');
 
 export var searchTextReducer = (state = '', action) => {
   switch (action.type){
@@ -64,15 +63,15 @@ export var authReducer = (state = {}, action) => {
 
 export var videosReducer = (state = [], action) => {
   switch (action.type){
-    case 'ADD_CONTACTS':
+    case 'ADD_VIDEOS':
       console.log(action);
       return [
         ...state,
         ...action.videos
       ];
-    case 'REMOVE_CONTACT':
-      return state.filter((contact) => {
-        return contact.id !== action.id;
+    case 'REMOVE_VIDEO':
+      return state.filter((video) => {
+        return video.id !== action.id;
       });
     case 'ADD_VIDEO':
       return [
@@ -86,20 +85,20 @@ export var videosReducer = (state = [], action) => {
       ];
     case 'REMOVE_ALL':
       return [];
-    case 'UPDATE_CONTACT': {
-      return state.map((contact) => {
-        if (contact.id === action.contact.id){
+    case 'UPDATE_VIDEO': {
+      return state.map((video) => {
+        if (video.id === action.video.id){
           return {
-            ...action.contact
+            ...action.video
           }
         } else {
-          return contact;
+          return video;
         }
       });
     }
     case 'REMOVE_SELECTED':
-      return state.filter((contact) => {
-        return !contact.checked;
+      return state.filter((video) => {
+        return !video.checked;
       });
     case 'TOGGLE_CHECK':
       return state.map((video) => {

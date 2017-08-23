@@ -20,7 +20,7 @@ export var Nav = React.createClass({
     var {dispatch} = this.props;
     dispatch(actions.openUploadForm({
       title: 'Add new video',
-      actionType: 'ADD_CONTACT'
+      actionType: 'ADD_VIDEO'
     }));
   },
   onLogout(e) {

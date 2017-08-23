@@ -1,6 +1,6 @@
 var {hashHistory} = require('react-router');
 var AuthenticationAPI = require('AuthenticationAPI');
-var ContactAPI = require('ContactAPI');
+var VideoAPI = require('VideoAPI');
 var VideoFileAPI = require('VideoFileAPI');
 
 export var setSearchText = (searchText) => {
@@ -41,7 +41,7 @@ export var openUploadForm = (modalForm) => {
 export var addVideos = (videos) => {
   console.log(videos);
   return {
-    type: 'ADD_CONTACTS',
+    type: 'ADD_VIDEOS',
       videos
   };
 };
@@ -52,9 +52,9 @@ export var notifyAddVideosDone = () => {
   };
 };
 
-export var startAddContacts = () => {
+export var startAddVideos = () => {
   return (dispatch, getState) => {
-    ContactAPI.getVideosByCurrentUser(dispatch);
+      VideoAPI.getVideosByCurrentUser(dispatch);
   };
 };
 
@@ -67,25 +67,6 @@ export var removeAll = () => {
 export var removeSelected = () => {
   return {
     type: 'REMOVE_SELECTED'
-  };
-};
-
-export var removeContact = (id) => {
-  return {
-    type: 'REMOVE_CONTACT',
-    id
-  };
-};
-
-export var sortByNameAsc = () => {
-  return {
-    type: 'SORT_NAME_ASC'
-  };
-};
-
-export var sortByNameDesc = () => {
-  return {
-    type: 'SORT_NAME_DESC'
   };
 };
 
@@ -103,12 +84,6 @@ export var startRemoveSelected = (videos) => {
     }).map((video)=>{
       return video.id;
     });
-    // for (var video in videos){
-    //   console.log(video.checked);
-    //   if (video.checked){
-    //     selected.push(video.id);
-    //   }
-    // }
     console.log(selected);
     VideoFileAPI.removeSelectedVideos(selected);
     dispatch(removeSelected());

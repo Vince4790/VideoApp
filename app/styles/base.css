@@ -52,23 +52,6 @@ article {
   padding-top: 120px;
 }
 
-.contact-list {
-  padding-top: 20px;
-}
-
-.contact-row {
-  margin-left: 20px;
-}
-
-.contact-radio {
-  position: relative;
-  left: 5px;
-  padding-right: 0px;
-}
-.contact-panel {
-  margin-left: 10px
-}
-
 .panel-login {
 	border-color: #fff;
 }

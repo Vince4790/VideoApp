@@ -21,7 +21,7 @@ module.exports = {
                 localStorage.setItem("authorization", btoa(email + ":" + password));
                 console.log(localStorage);
                 dispatch(actions.login(data.id));
-                hashHistory.push('/contacts');
+                hashHistory.push('/videos');
             },
             error: function(){
                 alert('Failed to login ! Please check your username or password');
