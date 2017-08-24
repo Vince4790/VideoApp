@@ -48,8 +48,8 @@ var VideoUploadForm = React.createClass({
 
     if (!fileName) {
       this.showErrorFileNameInput('Please choose a video');
-    } else if (extension !== 'mp4' && extension !== 'ogg'){
-      this.showErrorFileNameInput('Only mp4,ogg files allowed');
+    } else if (extension !== 'mp4' && extension !== 'webm' && extension !== 'mov' && extension !== 'avi'){
+      this.showErrorFileNameInput('Only mp4,mov,webm,avi files allowed');
     } else if (file.size > 500 * 1024 * 1024){
       this.showErrorFileNameInput('File cannot exceed 500 MB');
     } else if (videoName) {
