@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var actions = require('actions');
-const VIDEO_SERVICE_HOST = process.env.VIDEO_SERVICE_HOST || 'http://localhost:8080';
-const VIDEO_API_URL = VIDEO_SERVICE_HOST+'/api/videos';
+var config = require('config');
+const VIDEO_API_URL = config.VIDEO_SERVICE_HOST+'/api/videos';
 
 module.exports = {
   filterVideos: function(videos, searchText, sort){

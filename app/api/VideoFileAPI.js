@@ -1,13 +1,12 @@
 var $ = require('jquery');
 var actions = require('actions');
 const CryptoJS = require('crypto-js');
+var config = require('config');
 
-const VIDEO_SERVICE_HOST = process.env.VIDEO_SERVICE_HOST || 'http://localhost:8080';
-
-const VIDEO_UPLOAD_API_URL = VIDEO_SERVICE_HOST+'/api/video';
-const VIDEOS_API_REMOVE_URL = VIDEO_SERVICE_HOST+'/api/videos/remove';
-const VIDEOS_API_REMOVE_ALL_URL = VIDEO_SERVICE_HOST+'/api/videos/remove/all';
-const VIDEO_MERGE_AND_UPLOAD_API_URL = VIDEO_SERVICE_HOST+'/api/video/upload';
+const VIDEO_UPLOAD_API_URL = config.VIDEO_SERVICE_HOST+'/api/video';
+const VIDEOS_API_REMOVE_URL = config.VIDEO_SERVICE_HOST+'/api/videos/remove';
+const VIDEOS_API_REMOVE_ALL_URL = config.VIDEO_SERVICE_HOST+'/api/videos/remove/all';
+const VIDEO_MERGE_AND_UPLOAD_API_URL = config.VIDEO_SERVICE_HOST+'/api/video/upload';
 
 module.exports = {
     splitAndEncryptFile: function(file, videoName, ext, dispatch){
