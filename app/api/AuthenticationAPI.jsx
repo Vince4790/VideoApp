@@ -1,8 +1,9 @@
 var $ = require('jquery');
 var actions = require('actions');
 var {hashHistory} = require('react-router');
-const AUTHENTICATION_LOGIN_URL = "http://localhost:8080/login";
-const AUTHENTICATION_REGISTER_NEW_URL = 'http://localhost:8080/user/create';
+const VIDEO_SERVICE_HOST = process.env.VIDEO_SERVICE_HOST || 'http://localhost:8080';
+const AUTHENTICATION_LOGIN_URL = VIDEO_SERVICE_HOST+"/login";
+const AUTHENTICATION_REGISTER_NEW_URL = VIDEO_SERVICE_HOST+'/user/create';
 
 module.exports = {
     loginWithEmailAndPassword: function(email,password, dispatch){
