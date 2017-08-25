@@ -10,7 +10,7 @@ const VIDEO_MERGE_AND_UPLOAD_API_URL = config.VIDEO_SERVICE_HOST+'/api/video/upl
 
 module.exports = {
     splitAndEncryptFile: function(file, videoName, ext, dispatch){
-        var chunkSize = 5* 1024 * 1024; // 5 MB
+        var chunkSize = 40 * 1024 * 1024; // 40 MB
         var fileSize = file.size;
         const chunks = Math.ceil(file.size/chunkSize,chunkSize);
         var chunk = 0;
