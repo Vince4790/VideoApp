@@ -134,6 +134,7 @@ article {
 
 .thumb li {
   width: 193px;
+  margin-left: 20px;
 }
 
 .thumb li ~ li {
