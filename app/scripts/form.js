@@ -3,10 +3,6 @@ var actions = require('actions');
 var store = require('configureStore').configure();
 
 $(function() {
-    window.onunload = function() {
-        localStorage.clear();
-        return '';
-    };
 
   $('#login-form-link').click(function(e) {
 		$("#login-form").delay(100).fadeIn(100);
